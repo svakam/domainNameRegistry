@@ -17,22 +17,41 @@ public class Tests {
     }
 
     @Test
-    public void testDateTimeFormatter() {
+    public void testLocalDate() {
         LocalDate date = LocalDate.now();
         assertEquals(2020, date.getYear());
         assertEquals(Month.MAY, date.getMonth());
         assertEquals(18, date.getDayOfMonth());
-    }
-
-    Business b;
-
-    @Before
-    public void setUp() {
-        b = new Business("xyz789");
+        assertEquals("2020-05-18", date.toString());
+        LocalDate newDate = LocalDate.of(date.getYear() + 1, date.getMonth(), date.getDayOfMonth());
+        assertEquals("2021-05-18", newDate.toString());
     }
 
     @Test
-    public void testRenewDNR() {
+    public void testRegisterDomain() {
+        Business newBusiness = new Business("business123");
+        Response r = newBusiness.registerDomain("ilovedomains.donuts", 2, "year", "providerABC", "contactid789");
+
+        // response types vary between invoked operation; delete operation response is N/A or "success/failure", other responses contain more information
+        if (r instanceof ResponseNameExp) {
+            System.out.println(((ResponseNameExp) r).getDomainName());
+            System.out.println(((ResponseNameExp) r).getExpirationDate());
+            r.printStatus("success"); // assume input came from Business
+        }
+    }
+
+    @Test
+    public void testRenewDomain() {
+
+    }
+
+    @Test
+    public void testGetInfoDomain() {
+
+    }
+
+    @Test
+    public void testDeleteDomain() {
 
     }
 }

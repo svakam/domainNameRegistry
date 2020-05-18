@@ -1,5 +1,7 @@
 package domainNameRegistry;
 
+import java.time.LocalDate;
+
 // registration/renewal/info operations return this type of response object
 class ResponseNameExp extends Response {
     String domainName;
@@ -9,15 +11,33 @@ class ResponseNameExp extends Response {
         this.domainName = domainName;
     }
 
-    ResponseNameExp(String domainName, RegistrationPeriod rp) {
-        this.domainName = domainName;
-        this.expirationDate = calculateExpirationDate(rp);
+    ResponseNameExp(String domainName, int length, String unit) {
+        this.domainName = validateDomain(domainName);
+        this.expirationDate = calculateExpirationDate(length, unit);
     }
 
     // get current date, add to provided unit and return expiration date
-    String calculateExpirationDate(RegistrationPeriod rp) {
-        short length = rp.getLength();
-        return "hi";
+    String calculateExpirationDate(int length, String unit) {
+        LocalDate currentDate = LocalDate.now();
+        int extendedYear = currentDate.getYear();
+        if (unit.equals("year")) {
+            extendedYear = extendedYear + length;
+        }
+        return LocalDate.of(extendedYear, currentDate.getMonth(), currentDate.getDayOfMonth()).toString();
+    }
+
+    // validate domain name
+    String validateDomain(String domainName) {
+        int i = 0;
+        // assuming input domain also contains valid extension
+        while (domainName.charAt(i) != '.') {
+            i++;
+        }
+        if (i >= 9) {
+            return domainName;
+        } else {
+            return "invalid domain name length";
+        }
     }
 
     // getters and setters
