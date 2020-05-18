@@ -1,6 +1,6 @@
 package domainNameRegistry;
 
-public class Response implements PrintStatus {
+public class Response implements PrintStatusInterface {
 
     Response() {}
 

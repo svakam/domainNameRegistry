@@ -1,6 +1,6 @@
 package domainNameRegistry;
 
-public class ProviderPQR extends VerificationProvider implements Validation {
+public class ProviderPQR extends VerificationProvider implements ValidationInterface {
 
     ProviderPQR(String providerName, String contactID) {
         super(providerName);

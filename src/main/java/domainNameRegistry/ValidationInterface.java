@@ -1,6 +1,6 @@
 package domainNameRegistry;
 
 // validate method must be used by verification providers
-public interface Validation {
+public interface ValidationInterface {
     void validate(String contactID);
 }
